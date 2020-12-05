@@ -12,8 +12,8 @@ from biorxiv_retriever import BiorxivRetriever
 br = BiorxivRetriever()
 
 # Settings
-FROM_DATE = '2020-12-03'
-TO_DATE = '2020-12-02'
+FROM_DATE = '2020-11-22'
+TO_DATE = '2020-11-01'
 
 # Load current word library
 word_library = pickle.load(open('word_library.obj', 'rb'))
