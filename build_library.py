@@ -47,6 +47,10 @@ while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
         file_library = open('word_library.obj', 'wb')
         pickle.dump(word_library, file_library)
         file_library.close()
+        log_file = open('library_update_log.txt', 'a')
+        log_file.write('\n%s\nAdded papers of %s\n' % (
+                    datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), str(date_now.date())))
+        log_file.close()
 
         # Continue with day before
         date_now = date_now - datetime.timedelta(1)
