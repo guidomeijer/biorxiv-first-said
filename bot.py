@@ -42,11 +42,13 @@ while True:
             if word not in word_library:
                 new_words.add(word)
 
+    """
     # Update word library
     word_library = word_library | new_words
     file_library = open('word_library.obj', 'wb')
     pickle.dump(word_library, file_library)
     file_library.close()
+    """
 
     # Tweet out new words
     if len(new_words) == 0:
