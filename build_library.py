@@ -5,6 +5,7 @@ Created on Sat Dec  5 14:24:04 2020
 @author: Guido Meijer
 """
 
+import sys
 import pickle
 from functions import word_cleanup
 import datetime
@@ -12,13 +13,17 @@ from biorxiv_retriever import BiorxivRetriever
 br = BiorxivRetriever()
 
 # Settings
-FROM_DATE = '2020-11-06'
-TO_DATE = '2019-01-01'
+TO_DATE = '2013-11-01'
+
+if len(sys.argv) == 1:
+    from_date = datetime.datetime.now().strftime("%Y-%m-%d")  # today
+else:
+    from_date = sys.argv[1]
 
 # Load current word library
 word_library = pickle.load(open('word_library.obj', 'rb'))
 
-date_now = datetime.datetime.strptime(FROM_DATE, '%Y-%m-%d')
+date_now = datetime.datetime.strptime(from_date, '%Y-%m-%d')
 while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
     print('Scraping papers from %s' % str(date_now.date()))
 
@@ -47,6 +52,8 @@ while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
         date_now = date_now - datetime.timedelta(1)
 
     except Exception as error_message:
-       print(error_message)
-
-
+        print(error_message)
+        error_log = open('error_log.txt', 'a')
+        error_log.write('\n%s\n%s\n' % (datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
+                                        error_message))
+        error_log.close()
