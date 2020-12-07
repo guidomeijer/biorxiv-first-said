@@ -9,7 +9,8 @@ from string import punctuation
 
 
 def remove_punctuation(value):
-    punctuation_no_dash = punctuation.replace('-', '')
+    punctuation_no_dash = punctuation + '“”‘’'
+    punctuation_no_dash = punctuation_no_dash.replace('-', '')
     result = ""
     for c in value:
         if c not in punctuation_no_dash:

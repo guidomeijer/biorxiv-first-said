@@ -45,6 +45,7 @@ while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
         current_size = len(word_library)
         for i in range(len(papers)):
             new_words = word_cleanup(papers[i]['abstract'].split())
+            new_words.difference_update([i for i in new_words if i.startswith('http')])
             word_library = word_library | new_words
 
         # Print result
