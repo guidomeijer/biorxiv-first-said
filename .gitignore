@@ -4,3 +4,7 @@ __pycache__/
 keys.csv
 
 .pylint.d/
+
+error_log.txt
+
+library_update_log.txt
