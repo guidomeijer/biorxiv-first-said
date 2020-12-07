@@ -45,7 +45,6 @@ while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
         current_size = len(word_library)
         for i in range(len(papers)):
             new_words = word_cleanup(papers[i]['abstract'].split())
-            new_words.difference_update([i for i in new_words if i.startswith('http')])
             word_library = word_library | new_words
 
         # Print result
@@ -57,8 +56,9 @@ while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
         pickle.dump(word_library, file_library)
         file_library.close()
         log_file = open('library_update_log.txt', 'a')
-        log_file.write('\n%s\nAdded papers of %s\n' % (
-                    datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), str(date_now.date())))
+        log_file.write('\n%s\nAdded papers of %s\nCurrent library size: %d words\n' % (
+                    datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), str(date_now.date()),
+                    len(word_library)))
         log_file.close()
 
         # Continue with day before

@@ -48,9 +48,6 @@ while attempt <= ATTEMPTS:
                 if word not in word_library:
                     new_words.add(word)
 
-        # Exclude weird url words
-        new_words.difference_update([i for i in new_words if i.startswith('http')])
-
         # Update word library
         word_library = word_library | new_words
         file_library = open('new_word_library.obj', 'wb')
