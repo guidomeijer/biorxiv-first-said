@@ -14,6 +14,7 @@ br = BiorxivRetriever()
 
 # Settings
 TO_DATE = '2013-11-01'
+ATTEMPTS = 3
 
 if len(sys.argv) == 1:
     from_date = datetime.datetime.now().strftime("%Y-%m-%d")  # today
@@ -24,10 +25,17 @@ else:
 word_library = pickle.load(open('word_library.obj', 'rb'))
 
 date_now = datetime.datetime.strptime(from_date, '%Y-%m-%d')
+attempt = 0
 while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
-    print('Scraping papers from %s' % str(date_now.date()))
+
+    # Check if maximum number of attempts reached
+    if attempt >= ATTEMPTS:
+        print('Max number of attempts reached, continuing with next day')
+        date_now = date_now - datetime.timedelta(1)
+        attempt = 0
 
     # Query papers of this date
+    print('Scraping papers from %s' % str(date_now.date()))
     try:
         papers = br.query('limit_from%%3A%s limit_to%%3A%s' % (str(date_now.date()),
                                                                str(date_now.date())),
@@ -56,6 +64,8 @@ while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
         date_now = date_now - datetime.timedelta(1)
 
     except Exception as error_message:
+        attempt += 1
+        print('Attempt %d of %d failed' % (attempt, ATTEMPTS))
         print(error_message)
         error_log = open('error_log.txt', 'a')
         error_log.write('\n%s\n%s\n' % (datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
