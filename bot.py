@@ -19,7 +19,7 @@ br = BiorxivRetriever()
 # Settings
 ATTEMPTS = 3  # Number of times to try to query in case of an error
 N_TWEETS = 5  # Number of tweets to send on each instance (rest goes into backlog)
-MAX_HOURS = 2  # Max hours to wait between tweets (uniform random pick)
+MAX_HOURS = 4  # Max hours to wait between tweets (uniform random pick)
 
 # Authenticate to Twitter
 api_keys = pandas.read_csv('keys.csv')
@@ -50,7 +50,7 @@ while attempt <= ATTEMPTS:
 
         # Update word library
         word_library = word_library | new_words
-        file_library = open('new_word_library.obj', 'wb')
+        file_library = open('word_library.obj', 'wb')
         pickle.dump(word_library, file_library)
         file_library.close()
 

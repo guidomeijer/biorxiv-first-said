@@ -13,7 +13,7 @@ from biorxiv_retriever import BiorxivRetriever
 br = BiorxivRetriever()
 
 # Settings
-TO_DATE = '2013-11-01'
+TO_DATE = '2018-12-05'
 ATTEMPTS = 3
 
 if len(sys.argv) == 1:
