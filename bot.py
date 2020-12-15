@@ -79,6 +79,9 @@ while attempt <= ATTEMPTS:
                                     word, i+1, len(tweet_words), int(sleep_time_secs / 60)))
             time.sleep(sleep_time_secs)
 
+	# If all goes well break out of while loop
+        break
+
     except Exception as error_message:
         attempt += 1
         print('Attempt %d of %d failed' % (attempt, ATTEMPTS))
@@ -88,5 +91,4 @@ while attempt <= ATTEMPTS:
                                         error_message))
         error_log.close()
 
-    # If all goes well break out of while loop
-    break
+
