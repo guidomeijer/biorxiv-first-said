@@ -22,9 +22,12 @@ def word_cleanup(word_list):
     clean_word_list = set()
     for word in word_list:
         clean_word = remove_punctuation(word)
-        if ((clean_word.islower() is False) or (any(map(str.isdigit, clean_word)))
-                or (clean_word[0] == '-') or (clean_word[-1] == '-') or (len(clean_word) <= 2)):
-            continue
-        clean_word_list.add(clean_word)
+        if ((clean_word.islower() is True) and not (any(map(str.isdigit, clean_word)))
+                and (clean_word[0] != '–') and (clean_word[-1] != '–')
+                and (clean_word[0] != '-') and (clean_word[-1] != '-')
+                and (clean_word.count('-') <= 1) and (clean_word.count('–') <= 1)
+                and (len(clean_word) >= 2)):
+            clean_word_list.add(clean_word)
     clean_word_list.difference_update([i for i in clean_word_list if i.startswith('http')])
+    clean_word_list.difference_update([i for i in clean_word_list if i.startswith('www')])
     return clean_word_list

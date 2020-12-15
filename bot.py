@@ -57,15 +57,17 @@ while attempt <= ATTEMPTS:
         # If the amount of new words is more than should be tweeted, make a random selection
         if len(new_words) > N_TWEETS:
 
-            # Pick random words to tweet this instance
+            # Pick random words to tweet this instance with only a maximum of two hyphenated words
             tweet_words = random.sample(new_words, N_TWEETS)
+            while len([word for word in tweet_words if word.count('-') > 0]) > 2:
+                print(tweet_words)
+                tweet_words = random.sample(new_words, N_TWEETS)
 
             # Save words that weren't picked into backlog
             new_words.difference_update(tweet_words)
-            backlog_words = pickle.load(open('backlog_words.obj', 'rb'))
-            backlog_words = backlog_words | new_words
-            backlog_file = open('backlog_words.obj', 'wb')
-            pickle.dump(backlog_words, backlog_file)
+            backlog_file = open('backlog_words.txt', 'a')
+            for k, word in enumerate(new_words):
+                backlog_file.write('%s\n' % word)
             backlog_file.close()
         else:
             # Otherwise, tweet all words
@@ -79,7 +81,7 @@ while attempt <= ATTEMPTS:
                                     word, i+1, len(tweet_words), int(sleep_time_secs / 60)))
             time.sleep(sleep_time_secs)
 
-	# If all goes well break out of while loop
+        # If all goes well break out of while loop
         break
 
     except Exception as error_message:
@@ -90,5 +92,3 @@ while attempt <= ATTEMPTS:
         error_log.write('\n%s\n%s\n' % (datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
                                         error_message))
         error_log.close()
-
-
