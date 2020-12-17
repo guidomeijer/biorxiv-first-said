@@ -18,8 +18,9 @@ br = BiorxivRetriever()
 
 # Settings
 ATTEMPTS = 3  # Number of times to try to query in case of an error
-N_TWEETS = 5  # Number of tweets to send on each instance (rest goes into backlog)
-MAX_HOURS = 4  # Max hours to wait between tweets (uniform random pick)
+N_TWEETS = 3  # Number of tweets to send on each instance (rest goes into backlog)
+MIN_HOURS = 3  # Max hours to wait between tweets (uniform random pick)
+MAX_HOURS = 8  # Max hours to wait between tweets (uniform random pick)
 
 # Authenticate to Twitter
 api_keys = pandas.read_csv('keys.csv')
@@ -59,8 +60,9 @@ while attempt <= ATTEMPTS:
 
             # Pick random words to tweet this instance with only a maximum of two hyphenated words
             tweet_words = random.sample(new_words, N_TWEETS)
-            while len([word for word in tweet_words if word.count('-') > 0]) > 2:
-                print(tweet_words)
+            t = time.time()  # to prevent infinite loop
+            while ((len([word for word in tweet_words if word.count('-') > 0]) > 2)
+                   and (time.time() - t < 5)):
                 tweet_words = random.sample(new_words, N_TWEETS)
 
             # Save words that weren't picked into backlog
@@ -76,7 +78,8 @@ while attempt <= ATTEMPTS:
         # Tweet out new words with some random time lag in between
         for i, word in enumerate(tweet_words):
             api.update_status(word)
-            sleep_time_secs = int((np.random.random_sample() * MAX_HOURS) * (60 * 60))
+            sleep_time_secs = int(((np.random.random_sample()
+                                    * (MAX_HOURS - MIN_HOURS)) + MIN_HOURS) * (60 * 60))
             print('Tweeted %s, [%d of %d], sleeping for %d minutes' % (
                                     word, i+1, len(tweet_words), int(sleep_time_secs / 60)))
             time.sleep(sleep_time_secs)
