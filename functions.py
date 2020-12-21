@@ -31,3 +31,24 @@ def word_cleanup(word_list):
     clean_word_list.difference_update([i for i in clean_word_list if i.startswith('http')])
     clean_word_list.difference_update([i for i in clean_word_list if i.startswith('www')])
     return clean_word_list
+
+
+def context(content, word):
+    """
+    Function by Max Bittker (https://github.com/MaxBittker/nyt-first-said/)
+    """
+    loc = content.find(word)
+    to_period = content[loc:].find('.')
+    prev_period = content[:loc].rfind('.')
+    allowance = 82
+    if to_period < allowance:
+        end = content[loc:loc + to_period + 1]
+    else:
+        end = u'{}…'.format(content[loc:loc + allowance])
+
+    if loc - prev_period < allowance:
+        start = u'{} '.format(content[prev_period + 2: loc].strip())
+    else:
+        start = u'…{}'.format(content[loc - allowance:loc])
+
+    return u'{}{}'.format(start, end)

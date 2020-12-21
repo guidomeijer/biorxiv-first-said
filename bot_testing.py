@@ -20,11 +20,11 @@ print('Scraping papers from %s' % str(today))
 papers = br.query('limit_from%%3A%s limit_to%%3A%s' % (str(today), str(today)), full_text=False)
 
 # Extract words
-new_words = set()
+new_words = []
+abstract_index = []
 for i in range(len(papers)):
-    # these_words = papers[i]['abstract'].split()
     these_words = word_cleanup(papers[i]['abstract'].split())
     for j, word in enumerate(these_words):
         if word not in word_library:
-            print(word)
-            new_words.add(word)
+            new_words.append(word)
+            abstract_index.append(i)
