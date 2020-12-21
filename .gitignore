@@ -8,3 +8,5 @@ keys.csv
 error_log.txt
 
 library_update_log.txt
+
+*.csv
