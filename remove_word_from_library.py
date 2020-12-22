@@ -14,7 +14,7 @@ else:
 
 # Remove word from library
 word_library = pickle.load(open('word_library.obj', 'rb'))
-word_library.difference_update(set(word))
+word_library.difference_update(set([word]))
 file_library = open('word_library.obj', 'wb')
 pickle.dump(word_library, file_library)
 file_library.close()
