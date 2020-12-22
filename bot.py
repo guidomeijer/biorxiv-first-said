@@ -65,7 +65,9 @@ while attempt <= ATTEMPTS:
         if len(new_words) > N_TWEETS:
 
             # Pick random words to tweet this instance with a maximum of two hyphenated words
-            tweet_words = random.sample(new_words, N_TWEETS)
+            word_pick = random.sample(range(len(new_words)), N_TWEETS)
+            tweet_words = new_words[word_pick]
+            tweet_abstract_ind = abstract_index[word_pick]
             t = time.time()  # to prevent infinite loop
             while ((len([word for word in tweet_words if word.count('-') > 0]) > 2)
                    and (time.time() - t < 5)):
