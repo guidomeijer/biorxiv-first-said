@@ -7,7 +7,7 @@ Created on Tue Dec 22 10:38:33 2020
 import pickle
 import sys
 
-if len(sys.argv) != 1:
+if len(sys.argv) != 2:
     print('You must input one word to be removed from the library')
 else:
     word = sys.argv[1]
