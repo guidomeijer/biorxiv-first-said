@@ -96,8 +96,7 @@ while attempt <= ATTEMPTS:
 
             # Tweet reply with link to article on @bioRxiv_where
             context_string = context(papers[tweet_abstract_ind[i]]['abstract'], word)
-            reply_text = '\"%s\" first appeared in: %s' % (context_string,
-                                                           papers[i]['biorxiv_url'])
+            reply_text = '\"%s\" \n %s' % (context_string, papers[i]['biorxiv_url'])
             print(word_tweet.id)
             api_where.update_status(reply_text, in_reply_to_status_id=word_tweet.id,
                                     auto_populate_reply_metadata=True)
