@@ -56,6 +56,7 @@ while attempt <= ATTEMPTS:
                     abstract_index.append(i)
 
         # Update word library
+        print('Found %d new words' % len(new_words))
         word_library = word_library | set(new_words)
         file_library = open('word_library.obj', 'wb')
         pickle.dump(word_library, file_library)
@@ -88,6 +89,7 @@ while attempt <= ATTEMPTS:
             tweet_abstract_ind = abstract_index.copy()
 
         # Tweet out new words with some random time lag in between
+        print('Tweeting %d words' % len(tweet_words))
         for i, word in enumerate(tweet_words):
             # Tweet word on @bioRxiv_first
             word_tweet = api_first.update_status(word)
