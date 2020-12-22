@@ -7,7 +7,7 @@ Created on Sat Dec  5 15:30:19 2020
 
 
 def remove_punctuation(word):
-    punctuation = '.,()—–-;/?:′’“”\'\"'
+    punctuation = '.,()—–-;/?$&*:′’“”\'\"'
     try:
         while word[0] in punctuation:
             word = word[1:]
