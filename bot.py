@@ -65,16 +65,16 @@ while attempt <= ATTEMPTS:
         # If the amount of new words is more than should be tweeted, make a random selection
         if len(new_words) > N_TWEETS:
 
-            # Pick random words to tweet this instance with a maximum of two hyphenated words
+            # Pick random words to tweet this instance with a maximum of one hyphenated words
             word_pick = random.sample(range(len(new_words)), N_TWEETS)
-            tweet_words = new_words[word_pick]
-            tweet_abstract_ind = abstract_index[word_pick]
+            tweet_words = np.array(new_words)[word_pick]
+            tweet_abstract_ind = np.array(abstract_index)[word_pick]
             t = time.time()  # to prevent infinite loop
-            while ((len([word for word in tweet_words if word.count('-') > 0]) > 2)
+            while ((len([word for word in tweet_words if word.count('-') > 0]) > 1)
                    and (time.time() - t < 5)):
                 word_pick = random.sample(range(len(new_words)), N_TWEETS)
-                tweet_words = new_words[word_pick]
-                tweet_abstract_ind = abstract_index[word_pick]
+                tweet_words = np.array(new_words)[word_pick]
+                tweet_abstract_ind = np.array(abstract_index)[word_pick]
 
             # Save words that weren't picked into backlog
             backlog_words = set(new_words)
@@ -91,6 +91,7 @@ while attempt <= ATTEMPTS:
         # Tweet out new words with some random time lag in between
         print('Tweeting %d words' % len(tweet_words))
         for i, word in enumerate(tweet_words):
+
             # Tweet word on @bioRxiv_first
             word_tweet = api_first.update_status(word)
 

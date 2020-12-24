@@ -19,7 +19,7 @@ def remove_punctuation(word):
 
 
 def word_cleanup(word_list):
-    punctuation = '.,()/;′:\'\"'
+    punctuation = '.,()/;′’:\'\"'
     clean_word_list = set()
     for word in word_list:
         clean_word = remove_punctuation(word)
