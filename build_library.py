@@ -68,7 +68,7 @@ while date_now >= datetime.datetime.strptime(TO_DATE, '%Y-%m-%d'):
         attempt += 1
         print('Attempt %d of %d failed' % (attempt, ATTEMPTS))
         print(error_message)
-        error_log = open('error_log.txt', 'a')
+        error_log = open('log.txt', 'a')
         error_log.write('\n%s\n%s\n' % (datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
                                         error_message))
         error_log.close()

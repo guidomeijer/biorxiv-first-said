@@ -6,7 +6,7 @@ Created on Sat Dec  5 14:24:04 2020
 """
 
 import pickle
-from functions import word_cleanup, context
+from functions import word_cleanup, context, init_log_files
 import datetime
 import random
 import pandas
@@ -15,6 +15,7 @@ import tweepy
 import time
 from biorxiv_retriever import BiorxivRetriever
 br = BiorxivRetriever()
+init_log_files()
 
 # Settings
 ATTEMPTS = 3  # Number of times to try to query in case of an error
@@ -61,6 +62,12 @@ while attempt <= ATTEMPTS:
         file_library = open('word_library.obj', 'wb')
         pickle.dump(word_library, file_library)
         file_library.close()
+
+        # Save to log
+        log_file = open('log.txt', 'a')
+        log_file.write('\n%s\nFound %d new words\n' % (
+                    datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), len(new_words)))
+        log_file.close()
 
         # If the amount of new words is more than should be tweeted, make a random selection
         if len(new_words) > N_TWEETS:
@@ -115,7 +122,7 @@ while attempt <= ATTEMPTS:
         attempt += 1
         print('Attempt %d of %d failed' % (attempt, ATTEMPTS))
         print(error_message)
-        error_log = open('error_log.txt', 'a')
+        error_log = open('log.txt', 'a')
         error_log.write('\n%s\n%s\n' % (datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
                                         error_message))
         error_log.close()

@@ -4,6 +4,7 @@ Created on Sat Dec  5 15:30:19 2020
 
 @author: Guido Meijer
 """
+from os.path import isfile
 
 
 def remove_punctuation(word):
@@ -52,3 +53,10 @@ def context(content, word):
         start = u'…{}'.format(content[loc - allowance:loc])
 
     return u'{}{}'.format(start, end)
+
+
+def init_log_files():
+    LOG_FILES = ['log', 'library_update_log']
+    for i, log in enumerate(LOG_FILES):
+        if not isfile('%s.txt' % log):
+            open('%s.txt' % log, 'a').close()
