@@ -65,8 +65,10 @@ while attempt <= ATTEMPTS:
 
         # Save to log
         log_file = open('log.txt', 'a')
-        log_file.write('\n%s\nFound %d new words\n' % (
-                    datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), len(new_words)))
+        log_file.write('\n%s\nFound %d new words in %d papers\n' % (
+                    datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
+                    len(new_words),
+                    len(papers)))
         log_file.close()
 
         # If the amount of new words is more than should be tweeted, make a random selection
