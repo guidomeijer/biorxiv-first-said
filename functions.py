@@ -8,7 +8,7 @@ from os.path import isfile
 
 
 def remove_punctuation(word):
-    punctuation = '.,()—–-;/?$&*:′’“”\'\"'
+    punctuation = '.,()[]—–-;/?$&*:′’“”\'\"'
     try:
         while word[0] in punctuation:
             word = word[1:]
