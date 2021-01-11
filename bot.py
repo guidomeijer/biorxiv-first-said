@@ -29,12 +29,6 @@ auth = tweepy.OAuthHandler(api_keys.loc[0, 'api_key'], api_keys.loc[0, 'api_key_
 auth.set_access_token(api_keys.loc[0, 'access_token'], api_keys.loc[0, 'access_token_secret'])
 api_first = tweepy.API(auth)
 
-# Initialize Twitter API for @bioRxiv_where
-api_keys = pandas.read_csv('where_keys.csv')
-auth = tweepy.OAuthHandler(api_keys.loc[0, 'api_key'], api_keys.loc[0, 'api_key_secret'])
-auth.set_access_token(api_keys.loc[0, 'access_token'], api_keys.loc[0, 'access_token_secret'])
-api_where = tweepy.API(auth)
-
 # Load word library
 word_library = pickle.load(open('word_library.obj', 'rb'))
 
@@ -104,11 +98,12 @@ while attempt <= ATTEMPTS:
             # Tweet word on @bioRxiv_first
             word_tweet = api_first.update_status(word)
 
-            # Tweet reply with link to article on @bioRxiv_where
+            # Tweet reply with link to article
             context_string = context(papers[tweet_abstract_ind[i]]['abstract'], word)
-            reply_text = '\"%s\" \n %s' % (context_string, papers[i]['biorxiv_url'])
+            reply_text = '\"%s\" \n %s' % (context_string,
+                                           papers[tweet_abstract_ind[i]]['biorxiv_url'])
             print(word_tweet.id)
-            api_where.update_status(reply_text, in_reply_to_status_id=word_tweet.id,
+            api_first.update_status(reply_text, in_reply_to_status_id=word_tweet.id,
                                     auto_populate_reply_metadata=True)
 
             sleep_time_secs = int(((np.random.random_sample()
