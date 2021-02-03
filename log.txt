@@ -1,0 +1,139 @@
+
+
+2020-12-26_08:44:06
+Found 0 new words in 0 papers
+
+2020-12-27_07:00:15
+Found 1 new words in 5 papers
+
+2020-12-28_07:00:20
+Found 2 new words in 7 papers
+
+2020-12-29_07:02:57
+Found 46 new words in 74 papers
+
+2020-12-30_07:03:53
+Found 53 new words in 96 papers
+
+2020-12-31_07:02:28
+Found 41 new words in 60 papers
+
+2021-01-01_07:00:04
+Found 0 new words in 0 papers
+
+2021-01-02_07:02:37
+Found 29 new words in 65 papers
+
+2021-01-02_07:02:37
+[{'code': 326, 'message': 'To protect our users from spam and other malicious activity, this account is temporarily locked. Please log in to https://twitter.com to unlock your account.'}]
+
+2021-01-02_07:04:54
+Found 0 new words in 65 papers
+
+2021-01-03_07:02:02
+Found 28 new words in 50 papers
+
+2021-01-03_07:02:03
+[{'code': 326, 'message': 'To protect our users from spam and other malicious activity, this account is temporarily locked. Please log in to https://twitter.com to unlock your account.'}]
+
+2021-01-03_07:03:46
+Found 0 new words in 50 papers
+
+2021-01-04_07:01:32
+Found 25 new words in 37 papers
+
+2021-01-04_07:01:32
+[{'code': 326, 'message': 'To protect our users from spam and other malicious activity, this account is temporarily locked. Please log in to https://twitter.com to unlock your account.'}]
+
+2021-01-04_07:02:48
+Found 0 new words in 37 papers
+
+2021-01-05_07:02:39
+Found 30 new words in 64 papers
+
+2021-01-06_07:05:02
+Found 102 new words in 121 papers
+
+2021-01-07_07:02:13
+Found 38 new words in 52 papers
+
+2021-01-08_07:03:34
+Found 49 new words in 85 papers
+
+2021-01-09_07:02:09
+Found 28 new words in 51 papers
+
+2021-01-10_07:01:49
+Found 30 new words in 44 papers
+
+2021-01-11_07:01:23
+Found 22 new words in 32 papers
+
+2021-01-12_07:04:07
+Found 51 new words in 94 papers
+
+2021-01-13_07:02:31
+Found 35 new words in 58 papers
+
+2021-01-14_07:03:36
+Found 51 new words in 83 papers
+
+2021-01-15_07:03:10
+Found 48 new words in 69 papers
+
+2021-01-16_07:02:38
+Found 46 new words in 63 papers
+
+2021-01-17_07:01:40
+Found 28 new words in 39 papers
+
+2021-01-18_07:02:05
+Found 34 new words in 46 papers
+
+2021-01-19_07:03:44
+Found 53 new words in 86 papers
+
+2021-01-20_07:05:40
+Found 85 new words in 128 papers
+
+2021-01-21_07:03:22
+Found 55 new words in 76 papers
+
+2021-01-22_07:04:48
+Found 67 new words in 116 papers
+
+2021-01-23_07:03:35
+Found 68 new words in 87 papers
+
+2021-01-24_07:01:42
+Found 32 new words in 38 papers
+
+2021-01-25_07:01:39
+Found 41 new words in 38 papers
+
+2021-01-26_07:03:39
+Found 72 new words in 85 papers
+
+2021-01-27_07:03:24
+Found 55 new words in 79 papers
+
+2021-01-28_07:04:14
+Found 65 new words in 100 papers
+
+2021-01-29_07:02:42
+Found 40 new words in 63 papers
+
+2021-01-30_07:01:55
+Found 38 new words in 46 papers
+
+2021-01-31_07:02:04
+Found 25 new words in 48 papers
+
+2021-02-01_07:01:50
+Found 31 new words in 42 papers
+
+2021-02-02_07:03:57
+Found 59 new words in 93 papers
+
+2021-02-03_07:03:31
+Found 43 new words in 83 papers
