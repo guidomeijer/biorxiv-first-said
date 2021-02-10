@@ -8,7 +8,7 @@ from os.path import isfile
 
 
 def remove_punctuation(word):
-    punctuation = '.,()[]—–-;/?$&*:′’“”\'\"'
+    punctuation = '.,()[]—–-;/?$&*:′‘’“”\'\"″'
     try:
         while word[0] in punctuation:
             word = word[1:]
@@ -25,7 +25,7 @@ def word_cleanup(word_list):
     for word in word_list:
         clean_word = remove_punctuation(word)
         if ((clean_word.islower() is True) and not (any(map(str.isdigit, clean_word)))
-                and (clean_word.count('-') <= 1) and (clean_word.count('–') <= 1)
+                and (clean_word.count('-') == 0) and (clean_word.count('–') == 0)
                 and (any(elem in punctuation for elem in clean_word) is False)
                 and (len(clean_word) > 3)):
             clean_word_list.add(clean_word)
