@@ -68,16 +68,10 @@ while attempt <= ATTEMPTS:
         # If the amount of new words is more than should be tweeted, make a random selection
         if len(new_words) > N_TWEETS:
 
-            # Pick random words to tweet this instance with a maximum of one hyphenated words
+            # Pick random words to tweet this instance
             word_pick = random.sample(range(len(new_words)), N_TWEETS)
             tweet_words = np.array(new_words)[word_pick]
             tweet_abstract_ind = np.array(abstract_index)[word_pick]
-            t = time.time()  # to prevent infinite loop
-            while ((len([word for word in tweet_words if word.count('-') > 0]) > 1)
-                   and (time.time() - t < 5)):
-                word_pick = random.sample(range(len(new_words)), N_TWEETS)
-                tweet_words = np.array(new_words)[word_pick]
-                tweet_abstract_ind = np.array(abstract_index)[word_pick]
 
             # Save words that weren't picked into backlog
             backlog_words = set(new_words)
