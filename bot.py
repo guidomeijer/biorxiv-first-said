@@ -26,7 +26,7 @@ MAX_HOURS = 8  # Max hours to wait between posts (uniform random pick)
 # Initialize 
 auth_keys = pandas.read_csv('auth.csv')
 client = Client()
-client.login(auth_keys['email'], auth_keys['password'])
+client.login(auth_keys['email'].values[0], auth_keys['password'].values[0])
 
 # Load word library
 word_library = pickle.load(open('word_library.obj', 'rb'))
