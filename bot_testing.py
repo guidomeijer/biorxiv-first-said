@@ -5,6 +5,14 @@ Created on Sat Dec  5 14:24:04 2020
 @author: Guido Meijer
 """
 
+from atproto import Client
+
+client = Client()
+client.login('guido.meijer@donders.ru.nl', 'ToK78Wsvk!cV')
+client.send_post(text='First test!')
+
+
+"""
 import pickle
 from functions import word_cleanup
 import datetime
@@ -15,7 +23,7 @@ br = BiorxivRetriever()
 word_library = pickle.load(open('word_library.obj', 'rb'))
 
 # Scrape today's papers
-today = datetime.date.today()
+today = datetime.date.today() - datetime.timedelta(days=1)
 print('Scraping papers from %s' % str(today))
 papers = br.query('limit_from%%3A%s limit_to%%3A%s' % (str(today), str(today)), full_text=False)
 
@@ -28,3 +36,4 @@ for i in range(len(papers)):
         if word not in word_library:
             new_words.append(word)
             abstract_index.append(i)
+"""

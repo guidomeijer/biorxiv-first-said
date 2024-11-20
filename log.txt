@@ -158,3 +158,12 @@ Found 42 new words in 85 papers
 
 2021-02-10_07:03:55
 Found 47 new words in 92 papers
+
+2024-11-20_10:55:48
+<urlopen error [Errno 11001] getaddrinfo failed>
+
+2024-11-20_10:56:19
+<urlopen error [Errno 11001] getaddrinfo failed>
+
+2024-11-20_10:56:53
+<urlopen error [Errno 11001] getaddrinfo failed>

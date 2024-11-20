@@ -11,23 +11,22 @@ import datetime
 import random
 import pandas
 import numpy as np
-import tweepy
 import time
+from atproto import Client
 from biorxiv_retriever import BiorxivRetriever
 br = BiorxivRetriever()
 init_log_files()
 
 # Settings
 ATTEMPTS = 3  # Number of times to try to query in case of an error
-N_TWEETS = 3  # Number of tweets to send on each instance (rest goes into backlog)
-MIN_HOURS = 3  # Max hours to wait between tweets (uniform random pick)
-MAX_HOURS = 8  # Max hours to wait between tweets (uniform random pick)
+N_postS = 3  # Number of posts to send on each instance (rest goes into backlog)
+MIN_HOURS = 3  # Max hours to wait between posts (uniform random pick)
+MAX_HOURS = 8  # Max hours to wait between posts (uniform random pick)
 
-# Initialize Twitter API for @bioRxiv_first
-api_keys = pandas.read_csv('keys.csv')
-auth = tweepy.OAuthHandler(api_keys.loc[0, 'api_key'], api_keys.loc[0, 'api_key_secret'])
-auth.set_access_token(api_keys.loc[0, 'access_token'], api_keys.loc[0, 'access_token_secret'])
-api_first = tweepy.API(auth)
+# Initialize 
+auth_keys = pandas.read_csv('auth.csv')
+client = Client()
+client.login(auth_keys['email'], auth_keys['password'])
 
 # Load word library
 word_library = pickle.load(open('word_library.obj', 'rb'))
@@ -65,45 +64,37 @@ while attempt <= ATTEMPTS:
                     len(papers)))
         log_file.close()
 
-        # If the amount of new words is more than should be tweeted, make a random selection
-        if len(new_words) > N_TWEETS:
+        # If the amount of new words is more than should be posted, make a random selection
+        if len(new_words) > N_postS:
 
-            # Pick random words to tweet this instance
-            word_pick = random.sample(range(len(new_words)), N_TWEETS)
-            tweet_words = np.array(new_words)[word_pick]
-            tweet_abstract_ind = np.array(abstract_index)[word_pick]
+            # Pick random words to post this instance
+            word_pick = random.sample(range(len(new_words)), N_postS)
+            post_words = np.array(new_words)[word_pick]
+            post_abstract_ind = np.array(abstract_index)[word_pick]
 
             # Save words that weren't picked into backlog
             backlog_words = set(new_words)
-            backlog_words.difference_update(set(tweet_words))
+            backlog_words.difference_update(set(post_words))
             backlog_file = open('backlog_words.txt', 'a')
             for k, word in enumerate(backlog_words):
                 backlog_file.write('%s\n' % word)
             backlog_file.close()
         else:
-            # Otherwise, tweet all words
-            tweet_words = new_words.copy()
-            tweet_abstract_ind = abstract_index.copy()
+            # Otherwise, post all words
+            post_words = new_words.copy()
+            post_abstract_ind = abstract_index.copy()
 
-        # Tweet out new words with some random time lag in between
-        print('Tweeting %d words' % len(tweet_words))
-        for i, word in enumerate(tweet_words):
+        # post out new words with some random time lag in between
+        print('posting %d words' % len(post_words))
+        for i, word in enumerate(post_words):
 
-            # Tweet word on @bioRxiv_first
-            word_tweet = api_first.update_status(word)
-
-            # Tweet reply with link to article
-            context_string = context(papers[tweet_abstract_ind[i]]['abstract'], word)
-            reply_text = '\"%s\" \n %s' % (context_string,
-                                           papers[tweet_abstract_ind[i]]['biorxiv_url'])
-            print(word_tweet.id)
-            api_first.update_status(reply_text, in_reply_to_status_id=word_tweet.id,
-                                    auto_populate_reply_metadata=True)
+            # Post word on Bluesky
+            client.send_post(text=word)
 
             sleep_time_secs = int(((np.random.random_sample()
                                     * (MAX_HOURS - MIN_HOURS)) + MIN_HOURS) * (60 * 60))
-            print('Tweeted %s, [%d of %d], sleeping for %d minutes' % (
-                                    word, i+1, len(tweet_words), int(sleep_time_secs / 60)))
+            print('Posted %s, [%d of %d], sleeping for %d minutes' % (
+                                    word, i+1, len(post_words), int(sleep_time_secs / 60)))
             time.sleep(sleep_time_secs)
 
         # If all goes well break out of while loop
