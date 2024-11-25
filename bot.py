@@ -19,8 +19,8 @@ init_log_files()
 
 # Settings
 ATTEMPTS = 3  # Number of times to try to query in case of an error
-N_postS = 3  # Number of posts to send on each instance (rest goes into backlog)
-MIN_HOURS = 3  # Max hours to wait between posts (uniform random pick)
+N_POSTS = 3  # Number of posts to send on each instance (rest goes into backlog)
+MIN_HOURS = 3  # Min hours to wait between posts (uniform random pick)
 MAX_HOURS = 8  # Max hours to wait between posts (uniform random pick)
 
 # Initialize 
@@ -34,9 +34,9 @@ word_library = pickle.load(open('word_library.obj', 'rb'))
 attempt = 0
 while attempt <= ATTEMPTS:
     try:
-        # Scrape today's papers
-        today = datetime.date.today()
-        papers = br.query('limit_from%%3A%s limit_to%%3A%s' % (str(today), str(today)),
+        # Scrape yesterday's papers
+        yesterday = datetime.date.today() - datetime.timedelta(days=1)
+        papers = br.query('limit_from%%3A%s limit_to%%3A%s' % (str(yesterday), str(yesterday)),
                           full_text=False)
 
         # Extract words
@@ -65,10 +65,10 @@ while attempt <= ATTEMPTS:
         log_file.close()
 
         # If the amount of new words is more than should be posted, make a random selection
-        if len(new_words) > N_postS:
+        if len(new_words) > N_POSTS:
 
             # Pick random words to post this instance
-            word_pick = random.sample(range(len(new_words)), N_postS)
+            word_pick = random.sample(range(len(new_words)), N_POSTS)
             post_words = np.array(new_words)[word_pick]
             post_abstract_ind = np.array(abstract_index)[word_pick]
 
