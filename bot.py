@@ -36,6 +36,7 @@ while attempt <= ATTEMPTS:
     try:
         # Scrape yesterday's papers
         yesterday = datetime.date.today() - datetime.timedelta(days=1)
+        print(str(yesterday))
         papers = br.query('limit_from%%3A%s limit_to%%3A%s' % (str(yesterday), str(yesterday)),
                           full_text=False)
 
