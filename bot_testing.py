@@ -14,7 +14,10 @@ client = Client()
 client.login(auth_keys['email'].values[0], auth_keys['password'].values[0])
 
 # Send post
-client.send_post(text='First test!')
+initial_post = client.send_post(text='This is a test post')
+client.send_post('This is a test reply',
+                 reply_to={'root': {'cid': initial_post['cid'], 'uri': initial_post['uri']},
+                           'parent': {'cid': initial_post['cid'], 'uri': initial_post['uri']}})
 
 
 """

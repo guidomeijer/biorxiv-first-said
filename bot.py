@@ -90,7 +90,17 @@ while attempt <= ATTEMPTS:
         for i, word in enumerate(post_words):
 
             # Post word on Bluesky
-            client.send_post(text=word)
+            initial_post = client.send_post(text=word)
+            
+            # Post reply with link to article
+            context_string = context(papers[post_abstract_ind[i]]['abstract'], word)
+            reply_text = '\"%s\" \n %s' % (context_string,
+                                           papers[post_abstract_ind[i]]['biorxiv_url'])
+            client.send_post(reply_text,
+                             reply_to={
+                                 'root': {'cid': initial_post['cid'], 'uri': initial_post['uri']},
+                                 'parent': {'cid': initial_post['cid'], 'uri': initial_post['uri']}
+                                 })
 
             sleep_time_secs = int(((np.random.random_sample()
                                     * (MAX_HOURS - MIN_HOURS)) + MIN_HOURS) * (60 * 60))
