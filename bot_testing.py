@@ -5,12 +5,15 @@ Created on Sat Dec  5 14:24:04 2020
 @author: Guido Meijer
 """
 
-
-"""
+import pandas
 from atproto import Client
 
+# Initialize 
+auth_keys = pandas.read_csv('auth.csv')
 client = Client()
-client.login('guido.meijer@donders.ru.nl', 'ToK78Wsvk!cV')
+client.login(auth_keys['email'].values[0], auth_keys['password'].values[0])
+
+# Send post
 client.send_post(text='First test!')
 
 
@@ -38,4 +41,4 @@ for i in range(len(papers)):
         if word not in word_library:
             new_words.append(word)
             abstract_index.append(i)
-
+"""
