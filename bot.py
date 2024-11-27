@@ -56,6 +56,7 @@ while attempt <= ATTEMPTS:
         file_library = open('word_library.obj', 'wb')
         pickle.dump(word_library, file_library)
         file_library.close()
+        print('Added new words to library of %d words' % len(word_library))
 
         # Save to log
         log_file = open('log.txt', 'a')
