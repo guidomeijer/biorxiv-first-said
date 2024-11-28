@@ -95,13 +95,18 @@ while attempt <= ATTEMPTS:
             
             # Post reply with link to article
             context_string = context(papers[post_abstract_ind[i]]['abstract'], word)
-            reply_text = '\"%s\" \n %s' % (context_string,
-                                           papers[post_abstract_ind[i]]['biorxiv_url'])
-            client.send_post(reply_text,
-                             reply_to={
-                                 'root': {'cid': initial_post['cid'], 'uri': initial_post['uri']},
-                                 'parent': {'cid': initial_post['cid'], 'uri': initial_post['uri']}
-                                 })
+            client.send_post(
+                '',
+                reply_to={
+                    'root': {'cid': initial_post['cid'], 'uri': initial_post['uri']},
+                    'parent': {'cid': initial_post['cid'], 'uri': initial_post['uri']}
+                    },
+                embed={
+                    '$type': 'app.bsky.embed.external',
+                    'external': {'uri': papers[post_abstract_ind[i]]['biorxiv_url'],
+                                 'title': papers[post_abstract_ind[i]]['title'],
+                                 'description': context_string}
+                    })
 
             sleep_time_secs = int(((np.random.random_sample()
                                     * (MAX_HOURS - MIN_HOURS)) + MIN_HOURS) * (60 * 60))
